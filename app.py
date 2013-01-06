@@ -53,6 +53,22 @@ def test_db():
 	output = template('make_table', rows=result)
 	return output
 
+@route('/get/<name>', method='GET')
+#@validate(no=int)
+def edit_name(name):
+	con = None
+	con = psycopg2.connect(dbname="dd593v8qlv784t", host="ec2-54-243-217-241.compute-1.amazonaws.com", port="5432", user="wovsovccagcayo", password="ar47Vr0fsg86Hi_IwNcqLMcFSU")
+	
+#con = psycopg2.connect(database='mytestedb', user='postgres') 
+	cur = con.cursor()
+	if cur.execute('SELECT * FROM usertestx WHERE username=%s;',(name)):
+		result = cur.fetchall()	
+ 
+		output = template('make_table', rows=result)
+		return output
+	else:
+		return "Failed NOT found" 
+
 @get('/addentry') # or @route('/login')
 def addentry_form():
     return '''<form method="POST" action="/addentry">
