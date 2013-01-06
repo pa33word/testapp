@@ -53,7 +53,7 @@ def test_db():
 	output = template('make_table', rows=result)
 	return output
 
-@route('/get/<name>', method='GET')
+@route("/get/<name>")
 #@validate(no=int)
 def edit_name(name):
 	con = None
