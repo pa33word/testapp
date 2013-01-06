@@ -62,14 +62,14 @@ def test_en():
 	cipher_for_decryption = AES.new(SECRET_KEY, AES.MODE_CBC, IV)
 	test = aestest()
 	encrypted_data = test.EncryptWithAES(cipher_for_encryption, our_data_to_encrypt)
-	print ('Encrypted string:', encrypted_data)
+	return ('Encrypted string:', encrypted_data)
 
 
 @route("/de")
 def test_de():
 	test2 = aestest()
 	decrypted_data = test2.DecryptWithAES(cipher_for_decryption, encrypted_data)
-	print ('Decrypted string:', decrypted_data)
+	return ('Decrypted string:', decrypted_data)
 ##
 #
 run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
