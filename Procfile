@@ -1,1 +1,1 @@
-web: python corktest.py
+web: python app.py
