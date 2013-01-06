@@ -155,7 +155,9 @@ def delete_role():
 
 ##
 ## Testing pages
-
+@bottle.route('/todo')
+def todo_list():
+	return {test: 'test'}
 # Static pages
 
 @bottle.route('/login')
