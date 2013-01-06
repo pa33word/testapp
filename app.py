@@ -68,7 +68,7 @@ def edit_name(name):
  
 		output = template('make_table', rows=result)
 		return output
-	else:
+	except:
 		return "Failed NOT found" 
 
 @get('/addentry') # or @route('/login')
