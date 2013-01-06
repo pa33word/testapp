@@ -151,35 +151,6 @@ def delete_role():
     except Exception, e:
         return dict(ok=False, msg=e.message)
 
-class ClassTest:
-	'Optional class documentation string'
-	def __init__(self, db):
-		self.db = db 
-	def get_todo(self):
-		conn = sqlite3.connect(self.db)
-		c = conn.cursor()
-		c.execute("SELECT id, task FROM todo WHERE status LIKE '1';")
-	#open all "task" will status = 1 or (1=Open)
-		result = c.fetchall()
-		c.close()
-
-		output = bottle.template('make_table', rows=result)
-		return output
-#
-@bottle.route('/todo1')
-def todo_list():
-	aaa.require(fail_redirect='/login')
-	test1 = ClassTest('todo.db')
-	#conn = sqlite3.connect('todo.db')
-	#c = conn.cursor()
-	#c.execute("SELECT id, task FROM todo WHERE status LIKE '1';")
-	#open all "task" will status = 1 or (1=Open)
-	#result = c.fetchall()
-	#c.close()
-
-	#output = bottle.template('make_table', rows=result)
-	xx = test1.get_todo()
-	return xx
 
 
 ##
@@ -188,7 +159,7 @@ def todo_list():
 # Static pages
 
 @bottle.route('/login')
-@bottle.view('login_form')
+@bottle.view('login_form')  ##
 def login_form():
     """Serve login form"""
     return {}
