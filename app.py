@@ -64,12 +64,15 @@ def edit_name(name):
 	#if:
 	try:	
 		cur.execute("""SELECT * FROM usertestx WHERE username = %s""", [name])  
-		result = cur.fetchall()	
+		if result = cur.fetchall():	
  
-		output = template('make_table', rows=result)
-		return output
+			output = template('make_table', rows=result)
+			return output
+		else:
+			return "Failed NOT found: %s" % name 
+
 	except:
-		return "Failed NOT found" 
+		return "Failed NOT found: %s" % name 
 
 @get('/addentry') # or @route('/login')
 def addentry_form():
