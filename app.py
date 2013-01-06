@@ -63,7 +63,7 @@ def edit_name(name):
 	cur = con.cursor()
 	#if:
 	try:	
-		cur.execute("""SELECT * FROM usertestx WHERE username = %s""", ["users"])  
+		cur.execute("""SELECT * FROM usertestx WHERE username = %s""", [name])  
 		result = cur.fetchall()	
  
 		output = template('make_table', rows=result)
