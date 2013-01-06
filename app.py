@@ -61,7 +61,8 @@ def edit_name(name):
 	
 #con = psycopg2.connect(database='mytestedb', user='postgres') 
 	cur = con.cursor()
-	if cur.execute('SELECT * FROM usertestx WHERE username=%s;',(name)):
+	try:
+		cur.execute("""SELECT * FROM usertestx WHERE username = %s""", ["users"])  
 		result = cur.fetchall()	
  
 		output = template('make_table', rows=result)
