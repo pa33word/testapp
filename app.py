@@ -63,8 +63,8 @@ def test_en():
 	test = aestest()
 	encrypted_data = test.EncryptWithAES(cipher_for_encryption, our_data_to_encrypt)
 	decrypted_data = test.DecryptWithAES(cipher_for_decryption, encrypted_data)
-	return ('Encrypted string:', encrypted_data '& De:', decrypted_data)
-
+	#return ('Encrypted string:', encrypted_data '& De:', decrypted_data)
+	return ('Decrypted string:', decrypted_data)
 
 #@route("/de")
 #def test_de():
