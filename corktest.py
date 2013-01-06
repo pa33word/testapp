@@ -9,12 +9,12 @@
 import bottle
 from beaker.middleware import SessionMiddleware
 from cork import Cork
-#import logging
+import logging
 #import sqlite3
 import os
 
-#logging.basicConfig(format='localhost - - [%(asctime)s] %(message)s', level=logging.DEBUG)
-#log = logging.getLogger(__name__)
+logging.basicConfig(format='localhost - - [%(asctime)s] %(message)s', level=logging.DEBUG)
+log = logging.getLogger(__name__)
 bottle.debug(True)
 
 # Use users.json and roles.json in the local example_conf directory
