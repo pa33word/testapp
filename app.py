@@ -1,6 +1,6 @@
 import os
 import psycopg2
-from bottle import route, run, template
+from bottle import route, run, template, get, post, request, template, validate, static_file, error, response
 ## NEED below for encryption
 from Crypto.Cipher import AES
 from base64 import b64encode, b64decode
@@ -72,10 +72,17 @@ def addentry_submit():
 	url     = request.forms.get('url')
 	user     = request.forms.get('user')
 	pre = request.forms.get('password')
-	encrypted_data = EncryptWithAES(cipher_for_encryption, pre)	
+	#our_data_to_encrypt = u'The Sample encrypt text901234567890abc'
+	SECRET_KEY = u'a1b2c3d4e5f6g7h8a1b2c3d4e5f6g7h8' # possibly needs unicode conversion from input string
+		
+	IV = u'12345678abcdeggh' # possibly needs unicode conversion from input string
+	cipher_for_encryption = AES.new(SECRET_KEY, AES.MODE_CBC, IV)
+	cipher_for_decryption = AES.new(SECRET_KEY, AES.MODE_CBC, IV)
+	test = aestest()
+	encrypted_data = test.EncryptWithAES(cipher_for_encryption, pre)	
 						#post_passwd = pre.encode('base64','strict')
 						#decrypt = post_passwd.decode('base64','strict')	
-	decrypted_data = DecryptWithAES(cipher_for_decryption, encrypted_data)
+	decrypted_data = test.DecryptWithAES(cipher_for_decryption, encrypted_data)
 	
 	return {'Entry: %s == THe username is: %s & the Password is : %s Decrypted: %s & of URL: %s' % (name,user,encrypted_data,decrypted_data,url)}
 	
@@ -86,14 +93,15 @@ def addentry_submit():
 	url     = request.json.get('url')
 	user     = request.json.get('user')
 	pre = request.json.get('password')
-	encrypted_data = EncryptWithAES(cipher_for_encryption, pre)	
+	encrypted_data = aestest.EncryptWithAES(cipher_for_encryption, pre)	
 						#post_passwd = pre.encode('base64','strict')
 						#decrypt = post_passwd.decode('base64','strict')	
-	decrypted_data = DecryptWithAES(cipher_for_decryption, encrypted_data)
+	decrypted_data = aestest.DecryptWithAES(cipher_for_decryption, encrypted_data)
 #	return json.dumps(request.json)	
 #	return "th recieved data is: %s \n" % name
 
 	return {'Entry: %s == THe username is: %s & the Password is : %s Decrypted: %s & of URL: %s' % (name,user,encrypted_data,decrypted_data,url)}
 ##
 #
-run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
+run(host='localhost', port=8080, debug=True, reloader=True)
+#run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
