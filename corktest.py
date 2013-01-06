@@ -9,13 +9,13 @@
 import bottle
 from beaker.middleware import SessionMiddleware
 from cork import Cork
-import logging
+#import logging
 #import sqlite3
 import os
 
-logging.basicConfig(format='localhost - - [%(asctime)s] %(message)s', level=logging.DEBUG)
-log = logging.getLogger(__name__)
-bottle.debug(True)
+#logging.basicConfig(format='localhost - - [%(asctime)s] %(message)s', level=logging.DEBUG)
+#log = logging.getLogger(__name__)
+#bottle.debug(True)
 
 # Use users.json and roles.json in the local example_conf directory
 aaa = Cork('Cork_example_conf', email_sender='federico.ceratto@gmail.com', smtp_url='smtp://smtp.magnet.ie')
@@ -176,7 +176,7 @@ def main():
     # Start the Bottle webapp
     bottle.debug(True)
     #bottle.run(app=app, quiet=False, reloader=True)
-    bottle.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
+    bottle.run(host="0.0.0.0", quiet=False, port=int(os.environ.get("PORT", 5000)))
 	
 
 if __name__ == "__main__":
