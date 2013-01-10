@@ -1,21 +1,12 @@
-#!/usr/bin/env python
-#
-#
-# Cork example web application
-#
-# The following users are already available:
-#  admin/admin, demo/demo
-
 import bottle
 from beaker.middleware import SessionMiddleware
 from cork import Cork
-#import logging
-#import sqlite3
+import logging
 import os
 
-#logging.basicConfig(format='localhost - - [%(asctime)s] %(message)s', level=logging.DEBUG)
-#log = logging.getLogger(__name__)
-#bottle.debug(True)
+logging.basicConfig(format='localhost - - [%(asctime)s] %(message)s', level=logging.DEBUG)
+log = logging.getLogger(__name__)
+bottle.debug(True)
 
 # Use users.json and roles.json in the local example_conf directory
 aaa = Cork('Cork_example_conf', email_sender='federico.ceratto@gmail.com', smtp_url='smtp://smtp.magnet.ie')
@@ -151,17 +142,10 @@ def delete_role():
     except Exception, e:
         return dict(ok=False, msg=e.message)
 
-
-
-##
-## Testing pages
-@bottle.route('/todo')
-def todo_list():
-	return {test: 'test'}
 # Static pages
 
 @bottle.route('/login')
-@bottle.view('login_form')  ##
+@bottle.view('login_form')
 def login_form():
     """Serve login form"""
     return {}
@@ -178,8 +162,6 @@ def main():
     # Start the Bottle webapp
     bottle.debug(True)
     #bottle.run(app=app, quiet=False, reloader=True)
-    bottle.run(host="0.0.0.0", quiet=False, port=int(os.environ.get("PORT", 5000)))
-	
-
+    bottle.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
 if __name__ == "__main__":
     main()
