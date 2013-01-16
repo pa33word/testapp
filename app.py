@@ -75,6 +75,29 @@ def edit_name(name):
 	except:
 		return "Failed NOT found: %s" % name 
 
+
+@route("/ass/<name>")
+#@validate(no=int)
+def edit_name(name):
+	con = None
+	con = psycopg2.connect(dbname="dd593v8qlv784t", host="ec2-54-243-217-241.compute-1.amazonaws.com", port="5432", user="wovsovccagcayo", password="ar47Vr0fsg86Hi_IwNcqLMcFSU")
+	
+#con = psycopg2.connect(database='mytestedb', user='postgres') 
+	cur = con.cursor()
+	#if:
+	try:	
+		cur.execute("""SELECT * FROM usertestx WHERE user_id = %s""", [name])  
+		result = cur.fetchall()
+		if result:	
+ 
+			output = template('make_table', rows=result)
+			return output
+		else:
+			return "Failed NOT found: %s" % name 
+
+	except:
+		return "Failed22 NOT found: %s" % name 
+
 @get('/addentry') # or @route('/login')
 def addentry_form():
     return '''<form method="POST" action="/addentry">
@@ -90,12 +113,16 @@ def addentry_form():
 
 @post('/addentry') # or @route('/login', method='POST')
 def addentry_submit():
-	name     = request.forms.get('name')
+	name     = request.forms.get('name') ## member name return sec key
 	url     = request.forms.get('url')
 	user     = request.forms.get('user')
 	pre = request.forms.get('password')
 	#our_data_to_encrypt = u'The Sample encrypt text901234567890abc'
+	# SELCT for tabel where username=name
 	SECRET_KEY = u'a1b2c3d4e5f6g7h8a1b2c3d4e5f6g7h8' # possibly needs unicode conversion from input string
+	##
+	# TO DO -- Generate correct format secert key, store passsed on user
+	#MUST be of length 16, 24, or 32
 		
 	IV = u'12345678abcdeggh' # possibly needs unicode conversion from input string
 	cipher_for_encryption = AES.new(SECRET_KEY, AES.MODE_CBC, IV)
@@ -125,5 +152,5 @@ def addentry_submit():
 	return {'Entry: %s == THe username is: %s & the Password is : %s Decrypted: %s & of URL: %s' % (name,user,encrypted_data,decrypted_data,url)}
 ##
 #
-#run(host='localhost', port=8080, debug=True, reloader=True)
-run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
+run(host='localhost', port=8080, debug=True, reloader=True)
+#run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
